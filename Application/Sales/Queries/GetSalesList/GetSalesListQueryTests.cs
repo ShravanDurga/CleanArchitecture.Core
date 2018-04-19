@@ -57,6 +57,8 @@ namespace CleanArchitecture.Core.Application.Sales.Queries.GetSalesList
                 Quantity = Quantity
             };
 
+            _mocker = new AutoMoqer();
+
             var saleMock = CreateDbSetMock.SetUpDbSet(new List<Sale> { _sale }.AsQueryable());
 
             _mocker.GetMock<IDatabaseService>()
@@ -66,44 +68,36 @@ namespace CleanArchitecture.Core.Application.Sales.Queries.GetSalesList
             _query = _mocker.Create<GetSalesListQuery>();
         }
 
-        //[Test]
-        //public void TestExecuteShouldReturnListOfSales()
-        //{
-        //    var saleMock = CreateDbSetMock.SetUpDbSet(new List<Sale> { _sale }.AsQueryable());
+        [Test]
+        public void TestExecuteShouldReturnListOfSales()
+        {
+            var results = _query.Execute();
 
-        //    _mocker.GetMock<IDatabaseService>()
-        //        .Setup(p => p.Sales)
-        //        .Returns(saleMock.Object);
+            var result = results.Single();
 
-        //   // _query = _mocker.Create<GetSalesListQuery>();
+            Assert.That(result.Id,
+                Is.EqualTo(SaleId));
 
-        //    var results = _query.Execute();
+            Assert.That(result.Date,
+                Is.EqualTo(Date));
 
-        //    var result = results.Single();
+            Assert.That(result.CustomerName,
+                Is.EqualTo(CustomerName));
 
-        //    Assert.That(result.Id,
-        //        Is.EqualTo(SaleId));
+            Assert.That(result.EmployeeName,
+                Is.EqualTo(EmployeeName));
 
-        //    Assert.That(result.Date,
-        //        Is.EqualTo(Date));
+            Assert.That(result.ProductName,
+                Is.EqualTo(ProductName));
 
-        //    Assert.That(result.CustomerName,
-        //        Is.EqualTo(CustomerName));
+            Assert.That(result.UnitPrice,
+                Is.EqualTo(UnitPrice));
 
-        //    Assert.That(result.EmployeeName,
-        //        Is.EqualTo(EmployeeName));
+            Assert.That(result.Quantity,
+                Is.EqualTo(Quantity));
 
-        //    Assert.That(result.ProductName,
-        //        Is.EqualTo(ProductName));
-
-        //    Assert.That(result.UnitPrice,
-        //        Is.EqualTo(UnitPrice));
-
-        //    Assert.That(result.Quantity,
-        //        Is.EqualTo(Quantity));
-
-        //    Assert.That(result.TotalPrice,
-        //        Is.EqualTo(TotalPrice));
-        //}
+            Assert.That(result.TotalPrice,
+                Is.EqualTo(TotalPrice));
+        }
     }
 }
