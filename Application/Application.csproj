@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Products\Commands\" />
     <Folder Include="Products\Queries\GetProductsList\" />
-    <Folder Include="Sales\" />
   </ItemGroup>
 
 </Project>
